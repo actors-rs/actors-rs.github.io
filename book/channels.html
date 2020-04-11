@@ -10,18 +10,18 @@
       
       
       
-      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <link rel="shortcut icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.0.2">
     
     
       
-        <title>Message Scheduling - Riker</title>
+        <title>Channels - Riker</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.07c9fbf5.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.07c9fbf5.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ecd4686e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.ecd4686e.min.css">
       
       
         
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#message-scheduling" class="md-skip">
+        <a href="#channels" class="md-skip">
           Skip to content
         </a>
       
@@ -72,7 +72,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href=".." title="Riker" class="md-header-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Riker" class="md-header-nav__button md-logo" aria-label="Riker">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
@@ -89,7 +89,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Message Scheduling
+              Channels
             
           </span>
         </div>
@@ -159,7 +159,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Riker" class="md-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Riker" class="md-nav__button md-logo" aria-label="Riker">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
@@ -189,7 +189,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../actors/" title="Actors" class="md-nav__link">
+    <a href="../" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="actors.html" title="Actors" class="md-nav__link">
       Actors
     </a>
   </li>
@@ -201,7 +213,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../messaging/" title="Message Types" class="md-nav__link">
+    <a href="messaging.html" title="Message Types" class="md-nav__link">
       Message Types
     </a>
   </li>
@@ -213,7 +225,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../hierarchy/" title="Actor Hierarchy" class="md-nav__link">
+    <a href="hierarchy.html" title="Actor Hierarchy" class="md-nav__link">
       Actor Hierarchy
     </a>
   </li>
@@ -225,7 +237,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../supervision/" title="Fault Tolerance" class="md-nav__link">
+    <a href="supervision.html" title="Fault Tolerance" class="md-nav__link">
       Fault Tolerance
     </a>
   </li>
@@ -237,20 +249,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../selection/" title="Actor Selection" class="md-nav__link">
+    <a href="selection.html" title="Actor Selection" class="md-nav__link">
       Actor Selection
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../channels/" title="Channels" class="md-nav__link">
-      Channels
     </a>
   </li>
 
@@ -270,14 +270,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Message Scheduling
+        Channels
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
         </span>
       </label>
     
-    <a href="./" title="Message Scheduling" class="md-nav__link md-nav__link--active">
-      Message Scheduling
+    <a href="channels.html" title="Channels" class="md-nav__link md-nav__link--active">
+      Channels
     </a>
     
       
@@ -296,23 +296,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#one-time-scheduling" class="md-nav__link">
-    One-time scheduling
+  <a href="#starting-a-channel" class="md-nav__link">
+    Starting a channel
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#repeat-scheduling" class="md-nav__link">
-    Repeat scheduling
+  <a href="#subscribing" class="md-nav__link">
+    Subscribing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cancelling" class="md-nav__link">
-    Cancelling
+  <a href="#publishing" class="md-nav__link">
+    Publishing
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-channels" class="md-nav__link">
+    Common channels
+  </a>
+  
+    <nav class="md-nav" aria-label="Common channels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-events" class="md-nav__link">
+    System events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dead-letters" class="md-nav__link">
+    Dead letters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -329,7 +356,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../config/" title="Configuration" class="md-nav__link">
+    <a href="scheduling.html" title="Message Scheduling" class="md-nav__link">
+      Message Scheduling
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="config.html" title="Configuration" class="md-nav__link">
       Configuration
     </a>
   </li>
@@ -341,7 +380,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../logging/" title="Logging" class="md-nav__link">
+    <a href="logging.html" title="Logging" class="md-nav__link">
       Logging
     </a>
   </li>
@@ -353,7 +392,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../futures/" title="Running Futures" class="md-nav__link">
+    <a href="futures.html" title="Running Futures" class="md-nav__link">
       Running Futures
     </a>
   </li>
@@ -365,7 +404,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../testing/" title="Testing" class="md-nav__link">
+    <a href="testing.html" title="Testing" class="md-nav__link">
       Testing
     </a>
   </li>
@@ -377,7 +416,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../patterns/" title="Patterns" class="md-nav__link">
+    <a href="patterns.html" title="Patterns" class="md-nav__link">
       Patterns
     </a>
   </li>
@@ -389,7 +428,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../faq/" title="FAQ" class="md-nav__link">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -401,7 +440,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../riker03/" title="Riker 0.3" class="md-nav__link">
+    <a href="riker03.html" title="Riker 0.3" class="md-nav__link">
       Riker 0.3
     </a>
   </li>
@@ -433,23 +472,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#one-time-scheduling" class="md-nav__link">
-    One-time scheduling
+  <a href="#starting-a-channel" class="md-nav__link">
+    Starting a channel
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#repeat-scheduling" class="md-nav__link">
-    Repeat scheduling
+  <a href="#subscribing" class="md-nav__link">
+    Subscribing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cancelling" class="md-nav__link">
-    Cancelling
+  <a href="#publishing" class="md-nav__link">
+    Publishing
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-channels" class="md-nav__link">
+    Common channels
+  </a>
+  
+    <nav class="md-nav" aria-label="Common channels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-events" class="md-nav__link">
+    System events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dead-letters" class="md-nav__link">
+    Dead letters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -465,7 +531,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/riker-rs/website/edit/master/docs/scheduling.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/riker-rs/website/edit/master/docs/channels.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -473,86 +539,71 @@
                   
                 
                 
-                <h1 id="message-scheduling">Message Scheduling</h1>
-<p>Riker's timer module provides scheduling features that allow messages to be sent after a given duration or at a specific time. Timer methods are exposed on both <code>ActorSystem</code> and <code>Context</code>.</p>
-<h2 id="one-time-scheduling">One-time scheduling</h2>
-<p>There are two methods that provide one-time scheduling:</p>
-<ul>
-<li><code>schedule_once</code> schedules a message to be sent after a given delay.</li>
-<li><code>schedule_at_time</code> schedules a message to be sent at a given specific time.</li>
-</ul>
-<p>Examples:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="n">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span><span class="p">(</span><span class="n">MyActor</span>::<span class="n">props</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;my-actor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
-
-<span class="n">ctx</span><span class="p">.</span><span class="n">schedule_once</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">actor</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nb">None</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;that&#39;s one small step for man&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">());</span><span class="w"></span>
+                <h1 id="channels">Channels</h1>
+<p>Riker channels allow for messages to be published to interested subscribers. Channels are actors so messaging a channel works the same way as any othe actor.</p>
+<h2 id="starting-a-channel">Starting a channel</h2>
+<p>The <code>riker::actors::channel</code> function returns a channel:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">chan</span>: <span class="nc">ChannelRef</span><span class="o">&lt;</span><span class="n">PowerStatus</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">channel</span><span class="p">(</span><span class="s">&quot;power-status&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sys</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
 
 
-<p>Here a message is scheduled to be sent to an actor after 20 seconds.</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SystemTime</span>::<span class="n">now</span><span class="p">();</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="n">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span><span class="p">(</span><span class="n">MyActor</span>::<span class="n">props</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;my-actor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<h2 id="subscribing">Subscribing</h2>
+<p>To subscribe to and receive messages from a channel an actor must support the message type of the channel.</p>
+<p>In the above example we created a channel that publishes <code>PowerStatus</code> messages, notifying components in an autonomous vehicle of changes in available battery energy. Let's create two actors that will subscribe to the channel so they can receive this message:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#[actor(PowerStatus)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">GpsActor</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">ctx</span><span class="p">.</span><span class="n">schedule_at_time</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="n">actor</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="nb">None</span><span class="p">,</span><span class="w"></span>
-<span class="w">                    </span><span class="s">&quot;one giant leap for mankind&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">());</span><span class="w"></span>
+<span class="cp">#[actor(Power)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">NavigationActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="o">..</span><span class="p">.</span><span class="w"></span>
+
+<span class="c1">// Each actor would send a Subscribe message to the</span>
+<span class="c1">// channel, typically in `pre_start`. E.g.:</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span>::<span class="n">new</span><span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">myself</span><span class="p">());</span><span class="w"></span>
+<span class="n">chan</span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Subscribe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">actor</span>: <span class="nc">sub</span><span class="p">,</span><span class="w"> </span><span class="n">topic</span>: <span class="s">&quot;*&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
 
-<p>Here a message is scheduled to be sent at the specific time <code>time</code>.</p>
-<h2 id="repeat-scheduling">Repeat scheduling</h2>
-<p>Messages can be scheduled to be repeatedly sent at specific intervals:</p>
-<ul>
-<li><code>schedule</code> method schedules a message to be repeatedly sent at a given interval.</li>
-</ul>
-<p>Example:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="n">iterv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="n">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span><span class="p">(</span><span class="n">MyActor</span>::<span class="n">props</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;my-actor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
-
-<span class="n">ctx</span><span class="p">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">interv</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">actor</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nb">None</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;a scheduled msg&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">());</span><span class="w"></span>
-</code></pre></div>
-
-
-<p>Here a message is scheduled to be repeated every 500 milliseconds. There is also a 100 millisecond initial delay, i.e. the duration before repeating of the message begins.</p>
+<p>Here we have two actors that each need to receive status changes in available battery power so they can adapt their behavior. They both must support the <code>PowerStatus</code> message that the channel publishes. You'll notice that we need to use <code>Box</code> to create a trait object of <code>Tell&lt;PowerStatus&gt;</code>.</p>
+<p>The <code>Subscribe</code> message is used to subscribe an actor to a channel, which you'll notice requires a topic. A channel consists of one or more topics, typically that have a common theme. When a message is published it is published to a specific topic on the channel.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Riker's default timer module is not persistent meaning that any scheduling is lost when an application is stopped. It's optimized for short dated durations from a few milliseconds to 48 hours, or your average time between deployments.</p>
+<p>When subscribing to a topic, if it does't already exist it will be created and any future messages published to it will be sent to the subscriber.</p>
 </div>
-<h2 id="cancelling">Cancelling</h2>
-<p>When scheduling a message a schedule ID is returned which can be used at a later time to cancel the schedule.</p>
-<p>Example:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">interv</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">actor</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nb">None</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;a scheduled msg&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">());</span><span class="w"></span>
-
-<span class="n">ctx</span><span class="p">.</span><span class="n">cancel_schedule</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w"></span>
+<h2 id="publishing">Publishing</h2>
+<p>The <code>Publish</code> message is used to publish to a channel:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PowerStatus</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">chan</span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Publish</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">stat</span><span class="p">,</span><span class="w"> </span><span class="n">topic</span>: <span class="s">&quot;power&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
 
-<p>Canceling a schedule removes it from the timer and the message will no longer be sent.</p>
-<p>Some example use cases of message scheduling include: </p>
-<ul>
-<li>To wait for a specific time for other actors to provide input, such as bidding systems</li>
-<li>As part of workflow to provide default messages after a timeout interval</li>
-<li>To periodically wake up an actor to check a resource, such as a queue, IO or sensor</li>
-<li>To periodically publish or broadcast messages to other actors</li>
-</ul>
-<p>Message scheduling is a core feature of concurrent systems and can drive applications to complete their objectives.</p>
-<p>We've covered the basics of the Riker Framework. Other topics include:</p>
-<p><a href="config">Configuration</a></p>
-<p><a href="futures">Running Futures</a></p>
-<p><a href="logging">Logging</a></p>
+<p>This message will be cloned and sent to each subscriber of <code>my-topic</code> on the channel <code>chan</code>.</p>
+<p>In this case, it may be that the <code>GpsActor</code> will choose to lower the GPS sampling rate if the battery level falls below a certain percentage, thus lowering the power used. The <code>NavigationActor</code> might override any active mission and force the vehicle to return to base if the power level drops to a critical level. The same use of channels could be applied to ecommerce platforms, payments systems, warehouse logistics, shipping tracking, etc.</p>
+<h2 id="common-channels">Common channels</h2>
+<p>When the actor system starts serveral channels are created. These channels help developers receive messages about system events and failed messages.</p>
+<h3 id="system-events">System events</h3>
+<p>The System Events channel provides events including <code>ActorCreated</code>, <code>ActorRestarted</code> and <code>ActorTerminated</code> events. Each of these are reprented as topic <code>actor.created</code>, <code>actor.restarted</code> and <code>actor.terminated</code> topics respectively. The message type is <code>SystemEvent</code> enum</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">sys</span><span class="p">.</span><span class="n">sys_events</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Subscribe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">actor</span>: <span class="nc">sub1</span><span class="p">,</span><span class="w"> </span><span class="n">topic</span>: <span class="s">&quot;actor.created&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>System events are considered system messages and therefore a subscriber's <code>Actor::sys_recv</code> method will be invoked instead of <code>Actor::recv</code>.</p>
+</div>
+<h3 id="dead-letters">Dead letters</h3>
+<p>The Dead Letters channel publishes messages that failed to be delivered to their destination actor. This channel can be subscribed to to handle those messages. Note: Dead letters use <code>Debug</code> representation of the original undelivered message, limiting the use of dead letters to logging of failed messages rather than actually acting upon them.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">sys</span><span class="p">.</span><span class="n">dead_letters</span><span class="p">().</span><span class="n">tell</span><span class="p">(</span><span class="n">Subscribe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">actor</span>: <span class="nc">sub1</span><span class="p">,</span><span class="w"> </span><span class="n">topic</span>: <span class="s">&quot;*&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>Channels form an integral part of the Riker system and provide essential services to creating dynamic applications where actors collaborate to achieve a common goal.</p>
+<p>Next we'll look at scheduling messages to be sent at a time in the future.</p>
+<p><a href="scheduling">Scheduling Messages</a></p>
                 
               
               
@@ -571,7 +622,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../channels/" title="Channels" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="selection.html" title="Actor Selection" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -580,19 +631,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Channels
+                Actor Selection
               </div>
             </div>
           </a>
         
         
-          <a href="../config/" title="Configuration" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="scheduling.html" title="Message Scheduling" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Configuration
+                Message Scheduling
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -619,15 +670,15 @@
       
     </div>
     
-      <script src="../assets/javascripts/vendor.36cbf620.min.js"></script>
-      <script src="../assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="assets/javascripts/vendor.36cbf620.min.js"></script>
+      <script src="assets/javascripts/bundle.00c583dd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "..",
+          base: ".",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.7f7c8775.min.js"
+            worker: "assets/javascripts/worker/search.7f7c8775.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
