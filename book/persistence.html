@@ -11,15 +11,15 @@
       
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.0.2">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
     
     
       
-        <title>Persisting State - Riker</title>
+        <title>Persisting State - Actors.rs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.07c9fbf5.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.89dc9fe3.min.css">
       
         <link rel="stylesheet" href="assets/stylesheets/palette.ecd4686e.min.css">
       
@@ -43,7 +43,7 @@
       
         
 <link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53076020-3","riker.rs"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53076020-3","actors.rs"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
@@ -72,7 +72,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="." title="Riker" class="md-header-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Actors.rs" class="md-header-nav__button md-logo" aria-label="Actors.rs">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
@@ -85,7 +85,7 @@
       
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            Riker
+            Actors.rs
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
@@ -159,13 +159,13 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Riker" class="md-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Actors.rs" class="md-nav__button md-logo" aria-label="Actors.rs">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
 
     </a>
-    Riker
+    Actors.rs
   </label>
   
     <div class="md-nav__source">
@@ -478,8 +478,8 @@
 <p>The combiniation of <code>id</code> and <code>keyspace</code> allow the underlying event storage to separate events so that when an actor re/starts only the events for that actor are queried. How these fields are used depends exclusively on the event store module used.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Events must be specific to an actual actor instance. Load balancing two actors representing the same logical entity, for example a specific user, will conflict since only the actor handling the event will update its state. </p>
 </div>
+<p>Events must be specific to an actual actor instance. Load balancing two actors representing the same logical entity, for example a specific user, will conflict since only the actor handling the event will update its state.</p>
 <h2 id="persisting-events">Persisting Events</h2>
 <p>A persistent actor uses the <code>ctx.persist_event</code> method to actually persist state. Like all other <code>Actor</code> operations in Riker this is a non-blocking operation:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"></span>
@@ -513,8 +513,8 @@
 <p>It's here in <code>apply_event</code> that state can be safely mutated, since any failure at this stage means that the event will be replayed when the actor restarts.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Never make state changes in <code>receive</code> of a persistent actor.</p>
 </div>
+<p>Never make state changes in <code>receive</code> of a persistent actor.</p>
 <h2 id="replaying-events">Replaying Events</h2>
 <p>When a persistent actor starts its events are queried based on the configured <code>id</code> and <code>keyspace</code>. It is guaranteed that no messages will be handled by <code>receive</code> until the persistent actor finishes replaying all events. The query to load events is a non-blocking operation.</p>
 <p>Once all events have been queried the <code>replay_event</code> method is invoked for each event:</p>
@@ -582,9 +582,12 @@
 <p>An implementation of <code>EventStore</code> simply needs to provide an instance of <code>Self</code> in the <code>new</code> function that will be invoked when the actor system starts. <code>insert</code> and <code>load</code> methods perform any serialization and deserialization necessary. The methods are invoked when <code>persist_event</code> is used and when an actor starts respectively.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since an event store only contains events and not whole state data can be serialized and stored in a single column of a database table for example. CBOR, JSON, MessagePack or any other serialization format could be used.</p>
-<p>The default model uses a simple in-memory event store which can be useful in tests and simple applications. All events are lost when the actor system is stopped.</p>
 </div>
+<p>Since an event store only contains events and not whole state data can be serialized and stored in a single column of a database table for example. CBOR, JSON, MessagePack or any other serialization format could be used.</p>
+<div class="codehilite"><pre><span></span><code>The default model uses a simple in-memory event store which can be useful in tests and simple applications. All events are lost when the actor system is stopped.
+</code></pre></div>
+
+
 <h2 id="cqrs">CQRS</h2>
 <p>Command Query Responsibility Separation (CQRS) builds of top of event sourcing to provide a more structured approach to persistence. Event sourcing alone works well for restoring individual actor state in an actor system with a fixed number of actors. This could be taken further so that data entities can be modeled as actors. For example, an entity could be a User, Account, Post, Transaction, Order, etc, where every instance is represented by its own actor instance.</p>
 <p>To make changes to an entity commands are sent to the actor representing that entity. For example, to change the password of a <code>User</code> entity an <code>UpdatePasswordCmd</code> can be sent, or to disable the user a <code>DisableUserCmd</code> can be sent. When an actor receives a command it validates it and then emits an event that will be persisted and applied:</p>
@@ -644,8 +647,8 @@
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If other systems outside of the actor system need to view the current state, which is generally the case, materialized views can be generated and stored in a separate data storage each time an event is persisted. This provides a clear separation between the command-side and query-side of state management.</p>
 </div>
+<p>If other systems outside of the actor system need to view the current state, which is generally the case, materialized views can be generated and stored in a separate data storage each time an event is persisted. This provides a clear separation between the command-side and query-side of state management.</p>
 <p>By default, if an entity actor instance has no activity for more the 120 seconds the manager will put the actor in to a sleep state. During this state the actor and its state is no longer in memory. When a command is sent to an actor in sleep state it is woken up by the manager, its state restored, and the command handled.</p>
 <p>The inactivity time to sleep can be changed in <code>riker.toml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">[cqrs]</span>

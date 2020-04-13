@@ -11,15 +11,15 @@
       
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.0.2">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.0">
     
     
       
-        <title>Fault Tolerance - Riker</title>
+        <title>Fault Tolerance - Actors.rs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.07c9fbf5.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.89dc9fe3.min.css">
       
         <link rel="stylesheet" href="assets/stylesheets/palette.ecd4686e.min.css">
       
@@ -43,7 +43,7 @@
       
         
 <link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53076020-3","riker.rs"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-53076020-3","actors.rs"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
@@ -72,7 +72,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="." title="Riker" class="md-header-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Actors.rs" class="md-header-nav__button md-logo" aria-label="Actors.rs">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
@@ -85,7 +85,7 @@
       
         <div class="md-header-nav__ellipsis">
           <span class="md-header-nav__topic md-ellipsis">
-            Riker
+            Actors.rs
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
@@ -159,13 +159,13 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Riker" class="md-nav__button md-logo" aria-label="Riker">
+    <a href="." title="Actors.rs" class="md-nav__button md-logo" aria-label="Actors.rs">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
 
     </a>
-    Riker
+    Actors.rs
   </label>
   
     <div class="md-nav__source">
@@ -528,33 +528,37 @@
                 
                 
                 <h1 id="fault-tolerance">Fault Tolerance</h1>
-<p>Riker applications exhibit fault tolerant behavior through self-healing. This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics. In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.</p>
+<p>Riker applications exhibit fault tolerant behavior through self-healing.
+This is achieved by supervision - each actor has a supervisor that is responsible for determining what to do if the actor panics.
+In Riker, an actor's parent is its supervisor. This 'parental supervision' is a natural fit since the actor system is a hierarchy.</p>
 <p>When an actor fails we can't guarantee its state is not corrupted. Its parent has three choices (strategies):</p>
 <ul>
 <li><code>Restart</code> the actor</li>
 <li><code>Escalate</code> up to the next supervisor</li>
 <li><code>Stop</code> the actor</li>
 </ul>
-<p>Supervision isolates failures and errors don't leak or cascade. Instead the system can decide the best way to restore to a clean, working state, or to gracefully stop.</p>
+<p>Supervision isolates failures and errors don't leak or cascade. Instead the system can decide the best way
+to restore to a clean, working state, or to gracefully stop.</p>
 <p>The supervision strategy an actor should use to supervise its children can be set in its <code>supervisor_strategy</code> method:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Strategy</span>::<span class="n">Stop</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="err">fn supervisor_strategy(&amp;self) -&gt; Strategy { Strategy::Stop }</span>
 </code></pre></div>
 
 
 <p>In this case, if a child fails it will choose to stop it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If <code>supervisor_strategy</code> is not set the default implementation is <code>Strategy::Restart</code>.</p>
 </div>
+<p>If <code>supervisor_strategy</code> is not set, the default implementation is <code>Strategy::Restart</code>.</p>
 <h2 id="mailboxes">Mailboxes</h2>
-<p>An actor has its own mailbox that messages are queued to during message delivery. When a message is sent to an actor it is added to the actor's mailbox and the actor is then scheduled to run. If during handling of a message the actor fails (panics) messages can still continue to be sent to the actor since the mailbox is separate. This allows the supervisor to handle the failure without losing messages - a restarted actor will then continue handling the queued messages once it restarts.</p>
+<p>An actor has its own mailbox that messages are queued to during message delivery.
+When a message is sent to an actor it is added to the actor's mailbox and the actor is then scheduled to run.
+If during handling of a message the actor fails (panics) messages can still continue to be sent to the actor
+since the mailbox is separate.
+This allows the supervisor to handle the failure without losing messages - a restarted actor
+will then continue handling the queued messages once it restarts.</p>
 <p>An actor's mailbox continues to exist until its actor is stopped or the system is stopped.</p>
 <h2 id="restart-strategy">Restart Strategy</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Strategy</span>::<span class="n">Restart</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="err">fn supervisor_strategy(&amp;self) -&gt; Strategy { Strategy::Restart }</span>
 </code></pre></div>
 
 
@@ -567,10 +571,104 @@
 <li>Restart the failed actor</li>
 <li>Resume the actor's mailbox and message handling</li>
 </ol>
-<h2 id="escalate-strategy">Escalate Strategy</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Strategy</span>::<span class="n">Escalate</span><span class="w"></span>
+<p><a href="../examples/supervision_restart.rs">supervision_restart.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Panic</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">DumbActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DumbActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
+
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">PanicActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_a&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_b&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_c&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_d&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">panic</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;// TEST PANIC // TEST PANIC // TEST PANIC //&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Test Restart Strategy</span>
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">actor_to_fail</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ActorRef</span><span class="o">&lt;</span><span class="n">PanicActorMsg</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">PanicActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;actor-to-fail&quot;</span><span class="p">).</span><span class="n">ok</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Strategy</span>::<span class="n">Restart</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorSystem</span>::<span class="n">new</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">RestartSup</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;supervisor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// println!(&quot;Child not added yet&quot;);</span>
+<span class="w">    </span><span class="c1">// sys.print_tree();</span>
+
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Before panic we see supervisor and actor that will panic!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sup</span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;We should see panic printed, but we still alive and panic actor still here!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+
+<h2 id="escalate-strategy">Escalate Strategy</h2>
+<div class="codehilite"><pre><span></span><code><span class="err">fn supervisor_strategy(&amp;self) -&gt; Strategy { Strategy::Escalate }</span>
 </code></pre></div>
 
 
@@ -581,20 +679,285 @@
 <li>The supervisor escalates and its mailbox is suspended</li>
 <li>The new supervisor decides which supervision strategy to follow</li>
 </ol>
-<h2 id="stop-strategy">Stop Strategy</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Strategy</span>::<span class="n">Stop</span><span class="w"></span>
+<p><a href="../examples/supervision_escalate.rs">supervision_escalate.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Panic</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">DumbActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DumbActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">PanicActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_a&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_b&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_c&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_d&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">panic</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;// TEST PANIC // TEST PANIC // TEST PANIC //&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">EscalateSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">actor_to_fail</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ActorRef</span><span class="o">&lt;</span><span class="n">PanicActorMsg</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EscalateSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EscalateSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">PanicActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;actor-to-fail&quot;</span><span class="p">).</span><span class="n">ok</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Strategy</span>::<span class="n">Escalate</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// match msg {</span>
+<span class="w">        </span><span class="c1">//     // We just resend the messages to the actor that we&#39;re concerned about testing</span>
+<span class="w">        </span><span class="c1">//     TestMsg::Panic =&gt; self.actor_to_fail.try_tell(msg, None).unwrap(),</span>
+<span class="w">        </span><span class="c1">//     TestMsg::Probe(_) =&gt; self.actor_to_fail.try_tell(msg, None).unwrap(),</span>
+<span class="w">        </span><span class="c1">// };</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EscalateSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EscalateSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">EscRestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">escalator</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ActorRef</span><span class="o">&lt;</span><span class="n">EscalateSupMsg</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EscRestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EscRestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">escalator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">EscalateSup</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;escalate-supervisor&quot;</span><span class="p">).</span><span class="n">ok</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Strategy</span>::<span class="n">Restart</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// match msg {</span>
+<span class="w">        </span><span class="c1">//     // We resend the messages to the parent of the actor that is/has panicked</span>
+<span class="w">        </span><span class="c1">//     TestMsg::Panic =&gt; self.escalator.try_tell(msg, None).unwrap(),</span>
+<span class="w">        </span><span class="c1">//     TestMsg::Probe(_) =&gt; self.escalator.try_tell(msg, None).unwrap(),</span>
+<span class="w">        </span><span class="c1">// };</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EscRestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EscRestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">escalator</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorSystem</span>::<span class="n">new</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">EscRestartSup</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;supervisor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Before panic we see supervisor and actor that will panic!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sup</span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;We should see panic printed, but we still alive and panic actor still here!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 
+<h2 id="stop-strategy">Stop Strategy</h2>
+<div class="codehilite"><pre><span></span><code><span class="err">fn supervisor_strategy(&amp;self) -&gt; Strategy { Strategy::Stop }</span>
+</code></pre></div>
+
+
 <p>The stop strategy stops the failed actor, removing it and its mailbox from the system.</p>
+<p><a href="../examples/supervision_stop.rs">supervision_stop.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Panic</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">DumbActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DumbActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">PanicActor</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_a&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_b&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_c&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">DumbActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;child_d&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PanicActor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PanicActorMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">panic</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;// TEST PANIC // TEST PANIC // TEST PANIC //&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Test Restart Strategy</span>
+<span class="cp">#[actor(Panic)]</span><span class="w"></span>
+<span class="cp">#[derive(Default)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">actor_to_fail</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ActorRef</span><span class="o">&lt;</span><span class="n">PanicActorMsg</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Actor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">pre_start</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">PanicActor</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;actor-to-fail&quot;</span><span class="p">).</span><span class="n">ok</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">supervisor_strategy</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Strategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Strategy</span>::<span class="n">Stop</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="nc">Self</span>::<span class="n">Msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Receive</span><span class="o">&lt;</span><span class="n">Panic</span><span class="o">&gt;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">RestartSup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RestartSupMsg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">receive</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_ctx</span>: <span class="kp">&amp;</span><span class="nc">Context</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Msg</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">_msg</span>: <span class="nc">Panic</span><span class="p">,</span><span class="w"> </span><span class="n">_sender</span>: <span class="nc">Sender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">actor_to_fail</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorSystem</span>::<span class="n">new</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">actor_of</span>::<span class="o">&lt;</span><span class="n">RestartSup</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;supervisor&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// println!(&quot;Child not added yet&quot;);</span>
+<span class="w">    </span><span class="c1">// sys.print_tree();</span>
+
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Before panic we see supervisor and actor that will panic!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sup</span><span class="p">.</span><span class="n">tell</span><span class="p">(</span><span class="n">Panic</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_millis</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;We should see panic printed, but we still alive and panic actor gone!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">sys</span><span class="p">.</span><span class="n">print_tree</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>The output will be</p>
+<div class="codehilite"><pre><span></span><code><span class="k">Before</span> <span class="n">panic</span> <span class="n">we</span> <span class="n">see</span> <span class="n">supervisor</span> <span class="k">and</span> <span class="n">actor</span> <span class="n">that</span> <span class="n">will</span> <span class="n">panic</span><span class="o">!</span>
+<span class="n">riker</span>
+<span class="err">└─</span> <span class="k">system</span>
+   <span class="err">└─</span> <span class="n">sys_events</span>
+   <span class="err">└─</span> <span class="n">dead_letters</span>
+   <span class="err">└─</span> <span class="n">dl_logger</span>
+<span class="err">└─</span> <span class="n">temp</span>
+<span class="err">└─</span> <span class="k">user</span>
+   <span class="err">└─</span> <span class="n">supervisor</span>
+      <span class="err">└─</span> <span class="n">actor</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="n">fail</span>
+         <span class="err">└─</span> <span class="n">child_b</span>
+         <span class="err">└─</span> <span class="n">child_c</span>
+         <span class="err">└─</span> <span class="n">child_d</span>
+         <span class="err">└─</span> <span class="n">child_a</span>
+
+<span class="n">thread</span> <span class="s1">&#39;pool-thread-#2&#39;</span> <span class="n">panicked</span> <span class="k">at</span> <span class="s1">&#39;// TEST PANIC // TEST PANIC // TEST PANIC //&#39;</span><span class="p">,</span> <span class="n">examples</span><span class="o">/</span><span class="n">supervision_stop</span><span class="p">.</span><span class="n">rs</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">9</span>
+<span class="p">...</span>
+
+<span class="n">We</span> <span class="n">should</span> <span class="n">see</span> <span class="n">panic</span> <span class="n">printed</span><span class="p">,</span> <span class="n">but</span> <span class="n">we</span> <span class="n">still</span> <span class="n">alive</span> <span class="k">and</span> <span class="n">panic</span> <span class="n">actor</span> <span class="n">gone</span><span class="o">!</span>
+<span class="n">riker</span>
+<span class="err">└─</span> <span class="k">system</span>
+   <span class="err">└─</span> <span class="n">sys_events</span>
+   <span class="err">└─</span> <span class="n">dead_letters</span>
+   <span class="err">└─</span> <span class="n">dl_logger</span>
+<span class="err">└─</span> <span class="n">temp</span>
+<span class="err">└─</span> <span class="k">user</span>
+   <span class="err">└─</span> <span class="n">supervisor</span>
+
+
+<span class="n">Process</span> <span class="n">finished</span> <span class="k">with</span> <span class="n">exit</span> <span class="n">code</span> <span class="mi">0</span>
+</code></pre></div>
+
+
 <h2 id="dead-letters">Dead letters</h2>
-<p>When an actor is terminated all existing <code>ActorRef</code>s are invalidated. Messages sent (using <code>tell</code>) are instead rerouted to dead letters, a dedicated channel that publishes undeliverable messages to any interested actors. Riker has a default subscriber, <code>dl_logger</code>, that simply logs dead letter messages using <code>info!</code>.</p>
+<p>When an actor is terminated all existing <code>ActorRef</code>s are invalidated.
+Messages sent (using <code>tell</code>) are instead rerouted to dead letters, a dedicated channel that publishes undeliverable messages to any interested actors.
+Riker has a default subscriber, <code>dl_logger</code>, that simply logs dead letter messages using <code>info!</code>.</p>
 <h2 id="supervisor-design">Supervisor Design</h2>
-<p>Good supervisor design is key to designing resilient, fault tolerant systems. At the core of this is creating an actor hierarchy that matches message flow and dependency.</p>
-<p>Next we'll see how actor paths can be utilized to message actors without an actor reference and broadcast to entire segments of the actor hierarchy.</p>
-<p><a href="selection">Actor Selection</a></p>
+<p>Good supervisor design is key to designing resilient, fault tolerant systems.
+At the core of this is creating an actor hierarchy that matches message flow and dependency.</p>
+<p>Next we'll see how actor paths can be utilized to message actors without an actor reference and
+broadcast to entire segments of the actor hierarchy.</p>
+<p><a href="selection.html">Actor Selection</a></p>
                 
               
               
