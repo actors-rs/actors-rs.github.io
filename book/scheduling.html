@@ -535,10 +535,14 @@
 
 
 <p>Here a message is scheduled to be repeated every 500 milliseconds. There is also a 100 millisecond initial delay, i.e. the duration before repeating of the message begins.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>Riker's default timer module is not persistent meaning that any scheduling is lost when an application is stopped. It's optimized for short dated durations from a few milliseconds to 48 hours, or your average time between deployments.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <h2 id="cancelling">Cancelling</h2>
 <p>When scheduling a message a schedule ID is returned which can be used at a later time to cancel the schedule.</p>
 <p>Example:</p>

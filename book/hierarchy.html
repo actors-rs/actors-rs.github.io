@@ -443,9 +443,8 @@ Perhaps the most important of these is <code>user</code>, since most actors crea
 Since it was started by using <code>actor_of</code> on <code>ActorSystem</code> it is considered a top-level actor.</p>
 <p>Let's look at how the hierarchy changes when another actor is started, this time from within <code>/user/my-actor</code>'s <code>recv</code>
 method using <code>Context.actor_of</code>.</p>
-<p><a href="../examples/hierarchy.rs">hierarchy.rs</a></p>
-<div class="codehilite"><pre><span></span><code><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">actors</span><span class="p">;</span><span class="w"></span>
-<span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<p><a href="https://github.com/actors-rs/actors.rs/blob/master/examples/hierarchy.rs">hierarchy.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Default)]</span><span class="w"></span>

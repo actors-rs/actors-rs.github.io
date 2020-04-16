@@ -419,10 +419,14 @@
 
 
 <p><code>sys.run</code> schedules the future for execution it will drive it to completion utilizing the dispatcher's thread pool. <code>run</code> returns a <code>futures::future::RemoteHandle</code> future that can be used to extract the result.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>Riker executes futures using the <code>Futures</code> crate's <code>futures::executor::ThreadPool</code>.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <p>In the next section we'll see how to to test Riker applications.</p>
 <p><a href="testing.html">Testing</a></p>
                 

@@ -545,10 +545,14 @@ to restore to a clean, working state, or to gracefully stop.</p>
 
 
 <p>In this case, if a child fails it will choose to stop it.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>If <code>supervisor_strategy</code> is not set, the default implementation is <code>Strategy::Restart</code>.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <h2 id="mailboxes">Mailboxes</h2>
 <p>An actor has its own mailbox that messages are queued to during message delivery.
 When a message is sent to an actor it is added to the actor's mailbox and the actor is then scheduled to run.
@@ -571,8 +575,8 @@ will then continue handling the queued messages once it restarts.</p>
 <li>Restart the failed actor</li>
 <li>Resume the actor's mailbox and message handling</li>
 </ol>
-<p><a href="../examples/supervision_restart.rs">supervision_restart.rs</a></p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<p><a href="https://github.com/actors-rs/actors.rs/blob/master/examples/supervision_restart.rs">supervision_restart.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>
@@ -679,8 +683,8 @@ will then continue handling the queued messages once it restarts.</p>
 <li>The supervisor escalates and its mailbox is suspended</li>
 <li>The new supervisor decides which supervision strategy to follow</li>
 </ol>
-<p><a href="../examples/supervision_escalate.rs">supervision_escalate.rs</a></p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<p><a href="https://github.com/actors-rs/actors.rs/blob/master/examples/supervision_escalate.rs">supervision_escalate.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>
@@ -818,8 +822,8 @@ will then continue handling the queued messages once it restarts.</p>
 
 
 <p>The stop strategy stops the failed actor, removing it and its mailbox from the system.</p>
-<p><a href="../examples/supervision_stop.rs">supervision_stop.rs</a></p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<p><a href="https://github.com/actors-rs/actors.rs/blob/master/examples/supervision_stop.rs">supervision_stop.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Clone, Debug)]</span><span class="w"></span>

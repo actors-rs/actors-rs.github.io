@@ -580,10 +580,14 @@
 
 
 <p>An implementation of <code>EventStore</code> simply needs to provide an instance of <code>Self</code> in the <code>new</code> function that will be invoked when the actor system starts. <code>insert</code> and <code>load</code> methods perform any serialization and deserialization necessary. The methods are invoked when <code>persist_event</code> is used and when an actor starts respectively.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>Since an event store only contains events and not whole state data can be serialized and stored in a single column of a database table for example. CBOR, JSON, MessagePack or any other serialization format could be used.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <div class="codehilite"><pre><span></span><code>The default model uses a simple in-memory event store which can be useful in tests and simple applications. All events are lost when the actor system is stopped.
 </code></pre></div>
 
@@ -645,10 +649,14 @@
 </code></pre></div>
 
 
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>If other systems outside of the actor system need to view the current state, which is generally the case, materialized views can be generated and stored in a separate data storage each time an event is persisted. This provides a clear separation between the command-side and query-side of state management.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <p>By default, if an entity actor instance has no activity for more the 120 seconds the manager will put the actor in to a sleep state. During this state the actor and its state is no longer in memory. When a command is sent to an actor in sleep state it is woken up by the manager, its state restored, and the command handled.</p>
 <p>The inactivity time to sleep can be changed in <code>riker.toml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">[cqrs]</span>

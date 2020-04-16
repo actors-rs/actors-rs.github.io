@@ -532,10 +532,16 @@
 <p>If you're familiar with the Actor Model and have used other actor frameworks, you will find Riker familiar. In particular, Riker has been inspired by Scala's <a href="https://akka.io">Akka</a> and has adopted some of the core concepts and terminology from that project.</p>
 <p>If you've never used actors in application development before, this documentation aims to be concise and easy to understand. No prior knowledge of actors is necessary.</p>
 <p>We welcome and encourage contributions to this guide. Please feel free to create Github issues with feedback or create PRs with changes. This documentation's source lives at: <a href="https://github.com/riker-rs/website">https://github.com/riker-rs/website</a>.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Riker is pre-1.0, and as such the framework is evolving. You can expect some API-level changes,
+but we do strive to keep breaking changes to an absolute minimum. Between versions 0.1 to 0.2.3
+there was only one minor API change, for example.</p>
 </div>
-<p>Riker is pre-1.0, and as such the framework is evolving. You can expect some API-level changes, but we do strive to keep breaking changes to an absolute minimum. Between versions 0.1 to 0.2.3 there was only one minor API change, for example.</p>
+<!-- prettier-ignore-end -->
+
 <h2 id="actors">Actors</h2>
 <p>The actor model is a conceptual model to deal with concurrent computation<sup><a href="https://en.wikipedia.org/wiki/Actor_model">1</a></sup>. At the core of the Riker framework are four main components:</p>
 <ul>
@@ -555,7 +561,7 @@
 <p>Actors interact with each other by passing messages. There is no assumed order to the above actions, and they could be carried out concurrently. Two messages that are sent concurrently can arrive in either order.</p>
 <p>To define an actor, the system needs to understand how an actor should handle the messages it receives. To do this, implement the <code>Actor</code> trait on your data type and, at a minimum, provide a <code>recv</code> method.</p>
 <p>Here's the Rust code:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">struct</span> <span class="nc">MyActor</span><span class="p">;</span><span class="w"></span>
 
@@ -574,7 +580,7 @@
 <h2 id="creating-actors">Creating Actors</h2>
 <p>Every application has an <code>ActorSystem</code>. The actor system provides actor management and the runtime to execute actors when they're sent messages. It also provides essential services such as starting actors and exposing system services.</p>
 <p>To start the actor system:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorSystem</span>::<span class="n">new</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
@@ -585,7 +591,7 @@
 <p>Here we see that the actor is started using <code>ActorSystem::new</code>.
 Once we've started the actor system we're ready to create some actors.</p>
 <p>We can also configure the system with a custom name using the <code>SystemBuilder</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SystemBuilder</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
@@ -597,7 +603,7 @@ Once we've started the actor system we're ready to create some actors.</p>
 
 
 <p>Once the actor system is started, we can begin to create actors:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Default)]</span><span class="w"></span>
 <span class="k">struct</span> <span class="nc">MyActor</span><span class="p">;</span><span class="w"></span>
@@ -637,9 +643,8 @@ References can also be used in <code>Props</code> as a field in another actor's 
 <h2 id="sending-messages">Sending Messages</h2>
 <p>Actors communicate only through sending and receiving messages. They are isolated and never expose their state or behavior.</p>
 <p>If we want to send a message to an actor, we use the <code>tell</code> method on the actor's <code>ActorRef</code>:</p>
-<p><a href="../examples/basic.rs">basic.rs</a></p>
-<div class="codehilite"><pre><span></span><code><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">actors</span><span class="p">;</span><span class="w"></span>
-<span class="k">use</span><span class="w"> </span><span class="n">actors</span>::<span class="n">actors</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
+<p><a href="https://github.com/actors-rs/actors.rs/blob/master/examples/basic.rs">basic.rs</a></p>
+<div class="codehilite"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">actors_rs</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w"></span>
 
 <span class="cp">#[derive(Default)]</span><span class="w"></span>

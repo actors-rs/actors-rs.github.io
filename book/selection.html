@@ -434,10 +434,14 @@
 
 
 <p>In this example an actor responsible for lighting in a home has a child actor for each individual light. If we want to turn off all lights a control message (<code>Protocol::Off</code>) could be sent to <code>/user/home-control/lighting/*</code>. Each child actor will receive the same message.</p>
+<!-- prettier-ignore-start -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>Paths are relative to the location where the selection is being made. E.g. from the actor <code>lighting</code>'s context, all children could be selected using <code>ctx.selection("*")</code>.</p>
+</div>
+<!-- prettier-ignore-end -->
+
 <p>We've seen that <code>ActorSelection</code> provides flexibility for certain use cases such as when an <code>ActorRef</code> isn't known at compile time, but more specifically for messaging multiple actors. This comes at the cost of traversing part of the actor hierarchy and cloning messages.</p>
 <p>Next we'll see how Channels provide publish/subscribe features to enable actor choreography.</p>
 <p><a href="channels.html">Channels</a></p>

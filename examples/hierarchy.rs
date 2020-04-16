@@ -1,5 +1,5 @@
 extern crate actors;
-use actors::actors::*;
+use actors_rs::*;
 use std::time::Duration;
 
 #[derive(Default)]
