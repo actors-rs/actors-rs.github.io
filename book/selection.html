@@ -408,16 +408,20 @@
                 
                 
                 <h1 id="actor-selection">Actor Selection</h1>
-<p>The primary means to interact with an actor is through it's actor reference (<code>ActorRef</code>). Since every actor also has a path it's possible to 'lookup' an actor by that path. It's also possible to interact with all actors that are part of a path.</p>
-<p>For example, if an actor is known to live at <code>/user/comms/high_gain_1</code>, but we don't have the actor reference for this actor, we can perform a selection:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">hga</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;/user/comms/high_gain_1&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<p>The primary means to interact with an actor is through it's actor reference (<code>ActorRef</code>). 
+Since every actor also has a path it's possible to 'lookup' an actor by that path. 
+It's also possible to interact with all actors that are part of a path.</p>
+<p>For example, if an actor is known to live at <code>/user/comms/high_gain_1</code>, 
+but we don't have the actor reference for this actor, we can perform a selection:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">let hga = ctx.select(&quot;/user/comms/high_gain_1&quot;).unwrap();</span>
 </code></pre></div>
 
 
-<p>This will return an <code>ActorSelection</code>. In some ways an <code>ActorSelection</code> behaves like an <code>ActorRef</code> but represents a collection of actors. When sending a message to a seclection all the actors in the selection that accept the sent message type will receive the message.</p>
+<p>This will return an <code>ActorSelection</code>. In some ways an <code>ActorSelection</code> behaves like an <code>ActorRef</code>, but represents a collection of actors. 
+When sending a message to a seclection all the actors in the selection that accept the sent message type will receive the message.</p>
 <p>To send messages to a selection:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">hga</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;/user/comms/high_gain_1&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
-<span class="n">hga</span><span class="p">.</span><span class="n">try_tell</span><span class="p">(</span><span class="s">&quot;I&#39;ve arrived safely&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="err">let hga = ctx.select(&quot;/user/comms/high_gain_1&quot;).unwrap();</span>
+<span class="err">hga.try_tell(&quot;I&#39;ve arrived safely&quot;.into(), None);</span>
 </code></pre></div>
 
 
@@ -428,7 +432,7 @@
 <li>You want to broadcast a message to all actors within a path</li>
 </ul>
 <p>It is possible to select all actors under an actor path and send the same message the actors in the selection:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">selection</span><span class="p">(</span><span class="s">&quot;/user/home-control/lighting/*&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;/user/home-control/lighting/*&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
 <span class="n">sel</span><span class="p">.</span><span class="n">try_tell</span><span class="p">(</span><span class="n">Protocol</span>::<span class="n">Off</span><span class="p">,</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
